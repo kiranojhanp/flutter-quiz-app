@@ -1,57 +1,56 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _MyAppState();
+  }
 }
 
-class MyApp extends StatelessWidget {
+class _MyAppState extends State<MyApp> {
+  var _questionIndex = 0;
+
+  void answerQuestion() {
+    setState(() {
+      _questionIndex = _questionIndex + 1;
+    });
+
+    print(_questionIndex);
+  }
+
   @override
   Widget build(BuildContext context) {
+    var _questions = [
+      'Whats\'s your fav color?',
+      'What\'s your fav animal?',
+      'What\'s your fav food?',
+    ];
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'First App',
-      home: FirstRoute(),
-    );
-  }
-}
-
-class FirstRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('First Route'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SecondRoute(),
-              ),
-            );
-          },
-          child: Text('Next Screen'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Quiz App'),
         ),
-      ),
-    );
-  }
-}
-
-class SecondRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Second Route'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go Back'),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(_questions[_questionIndex]),
+              ElevatedButton(
+                onPressed: answerQuestion,
+                child: Text('Answer 1'),
+              ),
+              ElevatedButton(
+                onPressed: answerQuestion,
+                child: Text('Answer 2'),
+              ),
+              ElevatedButton(
+                onPressed: answerQuestion,
+                child: Text('Answer 3'),
+              ),
+            ],
+          ),
         ),
       ),
     );
